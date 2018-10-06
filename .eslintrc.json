@@ -1,0 +1,28 @@
+{
+    "root": true,
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:prettier/recommended",
+        "plugin:react/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "rules": {
+        "prettier/prettier": "error",
+        "no-console": "off",
+        "no-delete-var": "off",
+        "no-extra-boolean-cast": "off",
+        "no-unsafe-finally": "off"
+    },
+    "plugins": [
+        "prettier",
+        "react"
+    ]
+}
