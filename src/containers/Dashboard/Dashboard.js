@@ -18,6 +18,7 @@ class Dashboard extends Component {
         });
     }
 
+    // to minimize reflows
     renderPlaceholders() {}
 
     render() {
@@ -35,7 +36,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = ({ posts }) => {
     return {
-        posts
+        posts: posts.data
     };
 };
 

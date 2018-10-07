@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Login from './containers/Login';
 import Dashboard from './containers/Dashboard';
@@ -10,7 +12,7 @@ class App extends Component {
         return (
             <Router>
                 <Fragment>
-                    <Menu /> {/* show it conditionally if authenticated */}
+                    {this.props.isLoggedIn ? <Menu /> : null} {/* guard??? */}
                     <Switch>
                         <Route path="/login" component={Login} />
                         <Route path="/" exact component={Dashboard} />
@@ -20,4 +22,15 @@ class App extends Component {
         );
     }
 }
-export default App;
+
+const mapStateToProps = ({ auth }) => {
+    return {
+        isLoggedIn: auth.isLoggedIn
+    };
+};
+
+App.propTypes = {
+    isLoggedIn: PropTypes.bool
+};
+
+export default connect(mapStateToProps)(App);
