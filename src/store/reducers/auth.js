@@ -19,6 +19,7 @@ const reducer = (state = initialState, action) => {
             };
         case actionTypes.LOG_OUT:
             return {
+                ...state,
                 isLoggedIn: false
             };
         default:

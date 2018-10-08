@@ -11,7 +11,7 @@ export const logIn = ({ email, password }) => {
         const expirationDate = new Date(new Date().getTime() + 24 * 3600 * 1000);
         localStorage.setItem('email', email);
         localStorage.setItem('expirationDate', expirationDate.toString());
-        authSuccess();
+        return authSuccess();
     }
 
     return {

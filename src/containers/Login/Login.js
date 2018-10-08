@@ -1,60 +1,60 @@
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { Button, FormControl, InputLabel, Input } from '@material-ui/core';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { logIn } from '../../store/actions';
-import styles from './Login.module.scss';
+import { Field, reduxForm } from 'redux-form';
+import { Redirect } from 'react-router-dom';
 
-const classes = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap'
+const styles = theme => ({
+    form: {
+        width: '100%',
+        marginTop: theme.spacing.unit
     },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: 200
-    },
-    dense: {
-        marginTop: 19
+    submit: {
+        marginTop: theme.spacing.unit * 3
     }
 });
 
 class Login extends Component {
     renderField = field => {
-        const { classes } = this.props;
+        const { areWrongCredentials } = this.props;
 
         return (
-            <div>
-                <TextField
-                    required
-                    label={field.label}
+            <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor={field.name}>{field.label}</InputLabel>
+                <Input
+                    error={!!field.meta.error || areWrongCredentials}
                     placeholder={field.placeholder ? field.placeholder : null}
                     type={field.type}
-                    className={classes.textField}
-                    margin="normal"
+                    id={field.name}
+                    autoComplete={field.autoComplete}
+                    name={field.name}
+                    autoFocus={!!field.autoFocus}
                     {...field.input}
                 />
-                {field.meta.error}
-            </div>
+            </FormControl>
         );
     };
 
-    onSubmit = () => {};
+    handleSubmit = values => {
+        this.props.onLogIn(values);
+    };
 
     render() {
-        const { classes, handleSubmit } = this.props;
+        const { classes, valid, handleSubmit, isLoggedIn } = this.props;
 
-        return (
-            <form className={classes.container} noValidate autoComplete="off" onSubmit={handleSubmit(this.onSubmit)}>
+        let content = (
+            <form className={classes.form} onSubmit={handleSubmit(this.handleSubmit)}>
                 <Field
                     label="Email"
                     placeholder="Podaj adres email"
                     name="email"
                     type="email"
-                    autoFocus
+                    autoComplete="email"
+                    autoFocus={true}
                     component={this.renderField}
                 />
                 <Field
@@ -62,10 +62,26 @@ class Login extends Component {
                     placeholder="Podaj hasło"
                     name="password"
                     type="password"
+                    autoComplete="current-password"
                     component={this.renderField}
                 />
+                <Button
+                    disabled={!valid}
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                >
+                    Sign in
+                </Button>
             </form>
         );
+        if (isLoggedIn) {
+            content = <Redirect push to="/posts" />;
+        }
+
+        return <Fragment>{content}</Fragment>;
     }
 }
 
@@ -73,14 +89,28 @@ const validate = values => {
     const errors = {};
 
     if (!values.email) {
-        errors.email = 'Musisz podać adres email';
+        errors.email = true;
     }
 
     if (!values.password) {
-        errors.password = 'Musisz podać hasło';
+        errors.password = true;
     }
 
     return errors;
+};
+
+Login.propTypes = {
+    classes: PropTypes.object.isRequired,
+    valid: PropTypes.bool.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    areWrongCredentials: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = ({ auth }) => {
+    return {
+        areWrongCredentials: auth.error,
+        isLoggedIn: auth.isLoggedIn
+    };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -90,10 +120,10 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(
-    withStyles(classes)(
+    withStyles(styles)(
         reduxForm({
             validate,
             form: 'LogInForm'
