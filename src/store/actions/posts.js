@@ -7,7 +7,7 @@ const fetchPostsStart = () => {
     };
 };
 
-const fetchPostsSuccess = data => {
+const fetchPostsSuccess = ({ data }) => {
     return {
         type: actionTypes.FETCH_POSTS_SUCCESS,
         payload: data

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './Post.module.scss';
+
 const post = props => (
     <li key={props.id}>
         {props.title} :: {props.body}

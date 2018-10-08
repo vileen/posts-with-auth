@@ -4,9 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 
-import * as actions from '../../store/actions';
+import { logIn } from '../../store/actions';
+import styles from './Login.module.scss';
 
-const styles = theme => ({
+const classes = theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap'
@@ -22,7 +23,7 @@ const styles = theme => ({
 });
 
 class Login extends Component {
-    renderField(field) {
+    renderField = field => {
         const { classes } = this.props;
 
         return (
@@ -31,27 +32,38 @@ class Login extends Component {
                     required
                     label={field.label}
                     placeholder={field.placeholder ? field.placeholder : null}
+                    type={field.type}
                     className={classes.textField}
                     margin="normal"
                     {...field.input}
                 />
+                {field.meta.error}
             </div>
         );
-    }
+    };
+
+    onSubmit = () => {};
 
     render() {
-        const { classes } = this.props;
+        const { classes, handleSubmit } = this.props;
 
         return (
-            <form className={classes.container} noValidate autoComplete="off">
+            <form className={classes.container} noValidate autoComplete="off" onSubmit={handleSubmit(this.onSubmit)}>
                 <Field
                     label="Email"
                     placeholder="Podaj adres email"
                     name="email"
+                    type="email"
                     autoFocus
                     component={this.renderField}
                 />
-                <Field label="Hasło" placeholder="Podaj hasło" name="password" component={this.renderField} />
+                <Field
+                    label="Hasło"
+                    placeholder="Podaj hasło"
+                    name="password"
+                    type="password"
+                    component={this.renderField}
+                />
             </form>
         );
     }
@@ -73,7 +85,7 @@ const validate = values => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLogIn: values => dispatch(actions.logIn(values))
+        onLogIn: values => dispatch(logIn(values))
     };
 };
 
@@ -81,7 +93,7 @@ export default connect(
     null,
     mapDispatchToProps
 )(
-    withStyles(styles)(
+    withStyles(classes)(
         reduxForm({
             validate,
             form: 'LogInForm'

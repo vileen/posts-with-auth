@@ -6,8 +6,13 @@ import PropTypes from 'prop-types';
 import Login from './containers/Login';
 import Dashboard from './containers/Dashboard';
 import Menu from './containers/Menu';
+import { authCheckState } from './store/actions';
 
 class App extends Component {
+    componentDidMount() {
+        this.props.onTryToAutoSignUp();
+    }
+
     render() {
         return (
             <Router>
@@ -29,8 +34,18 @@ const mapStateToProps = ({ auth }) => {
     };
 };
 
-App.propTypes = {
-    isLoggedIn: PropTypes.bool
+const mapDispatchToProps = dispatch => {
+    return {
+        onTryToAutoSignUp: () => dispatch(authCheckState())
+    };
 };
 
-export default connect(mapStateToProps)(App);
+App.propTypes = {
+    isLoggedIn: PropTypes.bool,
+    onTryToAutoSignUp: PropTypes.func.isRequired
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);

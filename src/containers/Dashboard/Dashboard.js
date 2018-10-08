@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import axios from '../../axios';
 
-import * as actions from '../../store/actions';
+import { fetchPosts } from '../../store/actions';
 import withErrorHandler from '../../hoc/withErrorHandler';
 import Post from '../../components/Post';
+import styles from './Dashboard.module.scss';
 
 class Dashboard extends Component {
     componentDidMount() {
@@ -42,7 +44,7 @@ const mapStateToProps = ({ posts }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchPosts: () => dispatch(actions.fetchPosts())
+        fetchPosts: () => dispatch(fetchPosts())
     };
 };
 
@@ -54,4 +56,4 @@ Dashboard.propTypes = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withErrorHandler(Dashboard));
+)(withErrorHandler(Dashboard, axios));
