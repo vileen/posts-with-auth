@@ -4,8 +4,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Login from './containers/Login';
+import Profile from './components/Profile';
+import NotFoundRoute from './components/NotFoundRoute';
 import Dashboard from './containers/Dashboard';
 import Menu from './containers/Menu';
+import PrivateRoute from './hoc/PrivateRoute';
 import { authCheckState } from './store/actions';
 
 class App extends Component {
@@ -19,8 +22,10 @@ class App extends Component {
                 <Fragment>
                     {this.props.isLoggedIn ? <Menu /> : null} {/* guard??? */}
                     <Switch>
+                        <PrivateRoute path="/" exact component={Dashboard} />
+                        <PrivateRoute path="/profile" component={Profile} />
                         <Route path="/login" component={Login} />
-                        <Route path="/" exact component={Dashboard} />
+                        <Route path="*" component={NotFoundRoute} />
                     </Switch>
                 </Fragment>
             </Router>

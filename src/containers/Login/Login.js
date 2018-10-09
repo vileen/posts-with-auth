@@ -78,7 +78,7 @@ class Login extends Component {
             </form>
         );
         if (isLoggedIn) {
-            content = <Redirect push to="/posts" />;
+            content = <Redirect to="/posts" />;
         }
 
         return <Fragment>{content}</Fragment>;

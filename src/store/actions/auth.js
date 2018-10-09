@@ -6,16 +6,22 @@ const authSuccess = () => {
     };
 };
 
-export const logIn = ({ email, password }) => {
-    if (email === 'test@test.com' && password === 'test') {
-        const expirationDate = new Date(new Date().getTime() + 24 * 3600 * 1000);
-        localStorage.setItem('email', email);
-        localStorage.setItem('expirationDate', expirationDate.toString());
-        return authSuccess();
-    }
-
+const authFail = () => {
     return {
-        type: actionTypes.LOG_IN_FAIL
+        type: actionTypes.LOG_IN_SUCCESS
+    };
+};
+
+export const logIn = ({ email, password }) => {
+    return dispatch => {
+        if (email === 'test@test.com' && password === 'test') {
+            const expirationDate = new Date(new Date().getTime() + 24 * 3600 * 1000);
+            localStorage.setItem('email', email);
+            localStorage.setItem('expirationDate', expirationDate.toString());
+            dispatch(authSuccess());
+        } else {
+            dispatch(authFail());
+        }
     };
 };
 
