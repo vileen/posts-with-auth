@@ -8,11 +8,12 @@ const authSuccess = () => {
 
 const authFail = () => {
     return {
-        type: actionTypes.LOG_IN_SUCCESS
+        type: actionTypes.LOG_IN_FAIL
     };
 };
 
 export const logIn = ({ email, password }) => {
+    console.log('logIn called');
     return dispatch => {
         if (email === 'test@test.com' && password === 'test') {
             const expirationDate = new Date(new Date().getTime() + 24 * 3600 * 1000);

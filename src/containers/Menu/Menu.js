@@ -35,7 +35,7 @@ class MenuAppBar extends Component {
                 <AppBar position="static">
                     <Toolbar>
                         <Typography variant="display1" color="inherit" className={classes.grow}>
-                            <Button component={Link} to="/posts" color="inherit">
+                            <Button component={Link} to="/" color="inherit">
                                 Posty
                             </Button>
                         </Typography>

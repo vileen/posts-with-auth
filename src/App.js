@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 
 import Login from './containers/Login';
 import Profile from './components/Profile';
-import NotFoundRoute from './components/NotFoundRoute';
+import NotFound from './components/NotFound';
 import Dashboard from './containers/Dashboard';
 import Menu from './containers/Menu';
-import PrivateRoute from './hoc/PrivateRoute';
 import { authCheckState } from './store/actions';
+import PrivateRoute from './hoc/PrivateRoute';
 
 class App extends Component {
     componentDidMount() {
@@ -17,15 +17,17 @@ class App extends Component {
     }
 
     render() {
+        const { isLoggedIn } = this.props;
+
         return (
             <Router>
                 <Fragment>
-                    {this.props.isLoggedIn ? <Menu /> : null} {/* guard??? */}
+                    {isLoggedIn ? <Menu /> : null}
                     <Switch>
-                        <PrivateRoute path="/" exact component={Dashboard} />
-                        <PrivateRoute path="/profile" component={Profile} />
+                        <PrivateRoute path="/" exact component={Dashboard} authenticated={isLoggedIn} />
+                        <PrivateRoute path="/profile" component={Profile} authenticated={isLoggedIn} />
                         <Route path="/login" component={Login} />
-                        <Route path="*" component={NotFoundRoute} />
+                        <Route component={NotFound} />
                     </Switch>
                 </Fragment>
             </Router>

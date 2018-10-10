@@ -20,13 +20,11 @@ const styles = theme => ({
 
 class Login extends Component {
     renderField = field => {
-        const { areWrongCredentials } = this.props;
-
         return (
             <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor={field.name}>{field.label}</InputLabel>
                 <Input
-                    error={!!field.meta.error || areWrongCredentials}
+                    error={!!field.meta.error || field.wrongCredentials}
                     placeholder={field.placeholder ? field.placeholder : null}
                     type={field.type}
                     id={field.name}
@@ -44,7 +42,7 @@ class Login extends Component {
     };
 
     render() {
-        const { classes, valid, handleSubmit, isLoggedIn } = this.props;
+        const { classes, valid, handleSubmit, isLoggedIn, areWrongCredentials } = this.props;
 
         let content = (
             <form className={classes.form} onSubmit={handleSubmit(this.handleSubmit)}>
@@ -55,6 +53,7 @@ class Login extends Component {
                     type="email"
                     autoComplete="email"
                     autoFocus={true}
+                    wrongCredentials={areWrongCredentials}
                     component={this.renderField}
                 />
                 <Field
@@ -63,6 +62,7 @@ class Login extends Component {
                     name="password"
                     type="password"
                     autoComplete="current-password"
+                    wrongCredentials={areWrongCredentials}
                     component={this.renderField}
                 />
                 <Button
@@ -78,7 +78,7 @@ class Login extends Component {
             </form>
         );
         if (isLoggedIn) {
-            content = <Redirect to="/posts" />;
+            content = <Redirect to="/" />;
         }
 
         return <Fragment>{content}</Fragment>;
@@ -113,11 +113,9 @@ const mapStateToProps = ({ auth }) => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onLogIn: values => dispatch(logIn(values))
-    };
-};
+const mapDispatchToProps = dispatch => ({
+    onLogIn: values => dispatch(logIn(values))
+});
 
 export default connect(
     mapStateToProps,
