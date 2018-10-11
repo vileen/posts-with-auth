@@ -2,6 +2,7 @@ export const FETCH_POSTS_START = 'FETCH_POSTS_START';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
 export const FETCH_POSTS_FAIL = 'FETCH_POSTS_FAIL';
 
+export const LOG_IN_CLEAR_ERROR = 'LOG_IN_CLEAR_ERROR';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAIL = 'LOG_IN_FAIL';
 export const LOG_OUT = 'LOG_OUT';

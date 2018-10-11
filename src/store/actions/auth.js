@@ -6,9 +6,21 @@ const authSuccess = () => {
     };
 };
 
-const authFail = () => {
+const authClearError = () => {
     return {
-        type: actionTypes.LOG_IN_FAIL
+        type: actionTypes.LOG_IN_CLEAR_ERROR
+    };
+};
+
+const authFail = () => {
+    return dispatch => {
+        // used to hide error snackbar after 3s
+        setTimeout(() => {
+            dispatch(authClearError());
+        }, 3000);
+        dispatch({
+            type: actionTypes.LOG_IN_FAIL
+        });
     };
 };
 

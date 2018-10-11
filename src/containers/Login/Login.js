@@ -4,15 +4,16 @@ import { Button, FormControl, InputLabel, Input, CssBaseline, Paper, Avatar } fr
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { LockOutlined } from '@material-ui/icons';
-
-import { logIn } from '../../store/actions';
-import { Field, reduxForm } from 'redux-form';
 import { Redirect } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
+
+import Snackbar from '../../components/UI/Snackbar';
+import { logIn } from '../../store/actions';
 
 const styles = theme => ({
     layout: {
         width: 'auto',
-        display: 'block', // Fix IE11 issue.
+        display: 'block',
         marginLeft: theme.spacing.unit * 3,
         marginRight: theme.spacing.unit * 3,
         [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
@@ -38,6 +39,9 @@ const styles = theme => ({
     },
     submit: {
         marginTop: theme.spacing.unit * 3
+    },
+    error: {
+        backgroundColor: theme.palette.error.dark
     }
 });
 
@@ -47,7 +51,7 @@ class Login extends Component {
             <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor={field.name}>{field.label}</InputLabel>
                 <Input
-                    error={!!field.meta.error || field.wrongCredentials}
+                    error={!!field.meta.error}
                     placeholder={field.placeholder ? field.placeholder : null}
                     type={field.type}
                     id={field.name}
@@ -83,7 +87,6 @@ class Login extends Component {
                                 type="email"
                                 autoComplete="email"
                                 autoFocus={true}
-                                wrongCredentials={areWrongCredentials}
                                 component={this.renderField}
                             />
                             <Field
@@ -92,7 +95,6 @@ class Login extends Component {
                                 name="password"
                                 type="password"
                                 autoComplete="current-password"
-                                wrongCredentials={areWrongCredentials}
                                 component={this.renderField}
                             />
                             <Button
@@ -105,6 +107,7 @@ class Login extends Component {
                             >
                                 Zaloguj się
                             </Button>
+                            <Snackbar type="error" message="Błędne dane logowania" open={areWrongCredentials} />
                         </form>
                     </Paper>
                 </main>

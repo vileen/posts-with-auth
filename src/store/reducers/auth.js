@@ -17,6 +17,11 @@ const reducer = (state = initialState, action) => {
                 isLoggedIn: false,
                 error: true
             };
+        case actionTypes.LOG_IN_CLEAR_ERROR:
+            return {
+                ...state,
+                error: false
+            };
         case actionTypes.LOG_OUT:
             return {
                 ...state,
