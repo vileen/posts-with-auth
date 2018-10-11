@@ -11,6 +11,8 @@ import { withStyles } from '@material-ui/core/styles/index';
 import { amber } from '@material-ui/core/colors';
 import { SnackbarContent } from '@material-ui/core';
 
+import './Snackbar.module.scss';
+
 const variantIcon = {
     success: CheckCircleIcon,
     warning: WarningIcon,
