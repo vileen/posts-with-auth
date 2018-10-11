@@ -3,14 +3,13 @@ import {
     Error as ErrorIcon,
     Warning as WarningIcon,
     Info as InfoIcon,
-    Close as CloseIcon,
     CheckCircle as CheckCircleIcon
 } from '@material-ui/icons';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import { amber } from '@material-ui/core/colors';
-import { IconButton, SnackbarContent } from '@material-ui/core';
+import { SnackbarContent } from '@material-ui/core';
 
 const variantIcon = {
     success: CheckCircleIcon,
@@ -43,7 +42,7 @@ const styles = theme => ({
 });
 
 const SnackBarContent = props => {
-    const { classes, className, message, onClose, variant, ...other } = props;
+    const { classes, className, message, variant, ...other } = props;
     const Icon = variantIcon[variant];
 
     return (
@@ -56,11 +55,6 @@ const SnackBarContent = props => {
                     {message}
                 </span>
             }
-            action={[
-                <IconButton key="close" aria-label="Close" color="inherit" className={classes.close} onClick={onClose}>
-                    <CloseIcon className={classes.icon} />
-                </IconButton>
-            ]}
             {...other}
         />
     );
@@ -70,7 +64,6 @@ SnackBarContent.propTypes = {
     classes: PropTypes.object.isRequired,
     className: PropTypes.string,
     message: PropTypes.node,
-    onClose: PropTypes.func,
     variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired
 };
 

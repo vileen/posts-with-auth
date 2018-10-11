@@ -19,16 +19,6 @@ class StyledSnackbar extends Component {
         return null;
     }
 
-    handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        this.setState({
-            open: false
-        });
-    };
-
     render() {
         const { message, type } = this.props;
 
@@ -39,9 +29,8 @@ class StyledSnackbar extends Component {
                     horizontal: 'center'
                 }}
                 open={this.state.open}
-                onClose={this.handleClose}
             >
-                <SnackbarContent onClose={this.handleClose} variant={type} message={message} />
+                <SnackbarContent variant={type} message={message} />
             </Snackbar>
         );
     }
