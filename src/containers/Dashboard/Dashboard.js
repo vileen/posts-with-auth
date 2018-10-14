@@ -2,43 +2,57 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import axios from '../../axios';
 
+import axios from '../../axios';
 import { fetchPosts } from '../../store/actions';
-import withErrorHandler from '../../hoc/withErrorHandler';
-import Post from '../../components/Post';
-import styles from './Dashboard.module.scss';
+import WithErrorHandler from '../../hoc/WithErrorHandler';
+import Card from '../../components/UI/Card';
+import classes from './Dashboard.module.scss';
 
 class Dashboard extends Component {
     componentDidMount() {
         this.props.fetchPosts();
     }
 
-    renderPosts() {
-        return _.each(this.props.posts, post => {
-            return <Post {...post} />;
+    static getArrayWithEmptyData(arr, len) {
+        while (arr.length < len) {
+            arr.push({
+                title: '',
+                body: '',
+                userId: ''
+            });
+        }
+    }
+
+    static renderPosts(posts, users) {
+        return _.map(posts, ({ title, body, userId }, index) => {
+            let userName = '';
+            if (userId) {
+                userName = users[userId].name;
+            }
+            return <Card key={index} title={title} body={body} caption={userName} />;
         });
     }
 
-    // to minimize reflows
-    renderPlaceholders() {}
-
     render() {
-        const { posts } = this.props;
+        const { posts, users } = this.props;
 
-        let content = this.renderPlaceholders();
+        const arr = [];
+        Dashboard.getArrayWithEmptyData(arr, 20);
+        let content = Dashboard.renderPosts(arr);
         if (posts && posts.length) {
-            this.renderPosts();
+            content = Dashboard.renderPosts(posts, users);
         }
 
         // render placeholders
-        return <div>{content}</div>;
+        return <div className={classes.posts}>{content}</div>;
     }
 }
 
-const mapStateToProps = ({ posts }) => {
+const mapStateToProps = ({ posts, users }) => {
     return {
-        posts: posts.data
+        posts: posts.data,
+        users: users.list
     };
 };
 
@@ -50,10 +64,11 @@ const mapDispatchToProps = dispatch => {
 
 Dashboard.propTypes = {
     fetchPosts: PropTypes.func.isRequired,
-    posts: PropTypes.array
+    posts: PropTypes.array,
+    users: PropTypes.object
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withErrorHandler(Dashboard, axios));
+)(WithErrorHandler(Dashboard, axios));

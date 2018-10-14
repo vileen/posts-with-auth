@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Button, FormControl, InputLabel, Input, CssBaseline, Paper, Avatar } from '@material-ui/core';
+import { Button, FormControl, InputLabel, Input, Paper, Avatar, withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { LockOutlined } from '@material-ui/icons';
@@ -73,7 +72,6 @@ class Login extends Component {
 
         let content = (
             <Fragment>
-                <CssBaseline />
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Avatar className={classes.avatar}>

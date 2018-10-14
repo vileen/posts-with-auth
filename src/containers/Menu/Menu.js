@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+import { AppBar, Button, Toolbar, Typography, IconButton, withStyles } from '@material-ui/core';
 import { ExitToApp, AccountBox } from '@material-ui/icons';
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
 import { logOut } from '../../store/actions';
+import Profile from '../Profile';
 
 const classes = {
     root: {
@@ -22,6 +18,16 @@ const classes = {
 };
 
 class MenuAppBar extends Component {
+    state = {
+        showProfile: false
+    };
+
+    handleProfileClose = () => {
+        this.setState({
+            showProfile: false
+        });
+    };
+
     handleLogOut = () => {
         this.props.onLogOut();
         this.props.history.push('/login');
@@ -39,7 +45,13 @@ class MenuAppBar extends Component {
                                 Posty
                             </Button>
                         </Typography>
-                        <IconButton component={Link} to="/profile" color="inherit" aria-label="Account">
+                        <IconButton
+                            component={Link}
+                            onClick={() => this.setState({ showProfile: true })}
+                            to="/profile"
+                            color="inherit"
+                            aria-label="Account"
+                        >
                             <AccountBox />
                         </IconButton>
                         <IconButton onClick={this.handleLogOut} color="inherit" aria-label="LogOut">
@@ -47,6 +59,7 @@ class MenuAppBar extends Component {
                         </IconButton>
                     </Toolbar>
                 </AppBar>
+                {this.state.showProfile ? <Profile handleClose={this.handleProfileClose} /> : null}
             </div>
         );
     }

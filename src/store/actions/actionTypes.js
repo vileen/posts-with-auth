@@ -6,3 +6,5 @@ export const LOG_IN_CLEAR_ERROR = 'LOG_IN_CLEAR_ERROR';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAIL = 'LOG_IN_FAIL';
 export const LOG_OUT = 'LOG_OUT';
+
+export const GET_LOGGED_IN_USER = 'GET_LOGGED_IN_USER';

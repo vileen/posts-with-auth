@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Login from './containers/Login';
-import Profile from './components/Profile';
+import Profile from './containers/Profile';
 import NotFound from './components/NotFound';
 import Dashboard from './containers/Dashboard';
 import Menu from './containers/Menu';
 import { authCheckState } from './store/actions';
 import PrivateRoute from './hoc/PrivateRoute';
+import Layout from './hoc/Layout';
 
 class App extends Component {
     componentDidMount() {
@@ -23,12 +24,13 @@ class App extends Component {
             <Router>
                 <Fragment>
                     {isLoggedIn ? <Menu /> : null}
-                    <Switch>
-                        <PrivateRoute path="/" exact component={Dashboard} authenticated={isLoggedIn} />
-                        <PrivateRoute path="/profile" component={Profile} authenticated={isLoggedIn} />
-                        <Route path="/login" component={Login} />
-                        <Route component={NotFound} />
-                    </Switch>
+                    <Layout>
+                        <Switch>
+                            <PrivateRoute path="/" exact component={Dashboard} authenticated={isLoggedIn} />
+                            <Route path="/login" component={Login} />
+                            <Route component={NotFound} />
+                        </Switch>
+                    </Layout>
                 </Fragment>
             </Router>
         );

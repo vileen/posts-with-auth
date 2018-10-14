@@ -29,6 +29,7 @@ export const logIn = ({ email, password }) => {
         if (email === 'test@test.com' && password === 'test') {
             const expirationDate = new Date(new Date().getTime() + 24 * 3600 * 1000);
             localStorage.setItem('email', email);
+            localStorage.setItem('userId', '1');
             localStorage.setItem('expirationDate', expirationDate.toString());
             dispatch(authSuccess());
         } else {
@@ -39,6 +40,7 @@ export const logIn = ({ email, password }) => {
 
 export const logOut = () => {
     localStorage.removeItem('email');
+    localStorage.removeItem('userId');
     localStorage.removeItem('expirationDate');
 
     return {
