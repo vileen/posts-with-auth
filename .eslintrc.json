@@ -4,7 +4,12 @@
         "cy": false,
         "beforeEach": false,
         "it": false,
-        "Cypress": false
+        "Cypress": false,
+        "expect": false,
+        "after": false,
+        "before": false,
+        "module": false,
+        "afterEach": false
     },
     "root": true,
     "parser": "babel-eslint",
