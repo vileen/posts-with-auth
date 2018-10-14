@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Login from './containers/Login';
-import Profile from './containers/Profile';
 import NotFound from './components/NotFound';
 import Dashboard from './containers/Dashboard';
 import Menu from './containers/Menu';

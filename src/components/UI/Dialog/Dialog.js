@@ -12,7 +12,7 @@ import {
 
 const styles = () => ({
     content: {
-        minWidth: 400
+        minWidth: 250
     }
 });
 

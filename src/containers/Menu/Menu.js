@@ -46,9 +46,7 @@ class MenuAppBar extends Component {
                             </Button>
                         </Typography>
                         <IconButton
-                            component={Link}
                             onClick={() => this.setState({ showProfile: true })}
-                            to="/profile"
                             color="inherit"
                             aria-label="Account"
                         >
