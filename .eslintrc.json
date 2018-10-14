@@ -1,4 +1,11 @@
 {
+    "globals": {
+        "describe": false,
+        "cy": false,
+        "beforeEach": false,
+        "it": false,
+        "Cypress": false
+    },
     "root": true,
     "parser": "babel-eslint",
     "env": {

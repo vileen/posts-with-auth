@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
+import Snackbar from '../../components/UI/Snackbar';
 
 const withErrorHandler = (WrappedComponent, axios) => {
     /*eslint react/display-name:0*/
@@ -41,18 +41,14 @@ const withErrorHandler = (WrappedComponent, axios) => {
         };
 
         render() {
-            const { open, error } = this.state;
-
+            const { open } = this.state;
             return (
                 <Fragment>
                     <Snackbar
-                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                        type="error"
+                        message="Wystąpił nieoczekiwany błąd"
                         open={open}
-                        onClose={this.handleClose}
-                        ContentProps={{
-                            'aria-describedby': 'message-id'
-                        }}
-                        message={<span id="message-id">{error}</span>}
+                        handleClose={this.handleClose}
                     />
                     <WrappedComponent {...this.props} />
                 </Fragment>

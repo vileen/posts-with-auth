@@ -20,7 +20,7 @@ class StyledSnackbar extends Component {
     }
 
     render() {
-        const { message, type } = this.props;
+        const { message, type, handleClose } = this.props;
 
         return (
             <Snackbar
@@ -28,6 +28,7 @@ class StyledSnackbar extends Component {
                     vertical: 'top',
                     horizontal: 'center'
                 }}
+                onClose={handleClose ? handleClose : null}
                 open={this.state.open}
             >
                 <SnackbarContent variant={type} message={message} />
@@ -39,7 +40,8 @@ class StyledSnackbar extends Component {
 StyledSnackbar.propTypes = {
     message: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
-    open: PropTypes.bool.isRequired
+    open: PropTypes.bool.isRequired,
+    handleClose: PropTypes.func
 };
 
 export default StyledSnackbar;
