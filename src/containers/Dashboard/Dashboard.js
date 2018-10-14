@@ -6,7 +6,7 @@ import _ from 'lodash';
 import axios from '../../axios';
 import { fetchPosts } from '../../store/actions';
 import WithErrorHandler from '../../hoc/WithErrorHandler';
-import Card from '../../components/UI/Card';
+import Card from './Card';
 import classes from './Dashboard.module.scss';
 
 class Dashboard extends Component {
