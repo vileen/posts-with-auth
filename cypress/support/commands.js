@@ -61,7 +61,7 @@ Cypress.Commands.add('loginFormVisible', sel => {
 Cypress.Commands.add('profileDialogContentExists', sel => {
     cy.get(sel.dialogTitle)
         .should('be.visible')
-        .should('contain', 'Twoje dane');
+        .should('contain', 'Your data');
     cy.get(sel.dialogNameInput).should('have.value', 'FirstName1 LastName1');
     cy.get(sel.dialogEmailInput).should('have.value', 'test@test.com');
     cy.get(sel.dialogPasswordInput).should('have.value', 'test');

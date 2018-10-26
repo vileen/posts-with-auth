@@ -80,7 +80,7 @@ class Login extends Component {
                         <form className={classes.form} onSubmit={handleSubmit(this.handleSubmit)}>
                             <Field
                                 label="Email"
-                                placeholder="Podaj adres email"
+                                placeholder="Pass your email"
                                 name="email"
                                 type="email"
                                 autoComplete="email"
@@ -88,8 +88,8 @@ class Login extends Component {
                                 component={this.renderField}
                             />
                             <Field
-                                label="Hasło"
-                                placeholder="Podaj hasło"
+                                label="Password"
+                                placeholder="Pass your password"
                                 name="password"
                                 type="password"
                                 autoComplete="current-password"
@@ -103,9 +103,9 @@ class Login extends Component {
                                 color="primary"
                                 className={classes.submit}
                             >
-                                Zaloguj się
+                                Log In
                             </Button>
-                            <Snackbar type="error" message="Błędne dane logowania" open={areWrongCredentials} />
+                            <Snackbar type="error" message="Wrong credentials" open={areWrongCredentials} />
                         </form>
                     </Paper>
                 </main>

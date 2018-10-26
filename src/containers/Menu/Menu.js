@@ -42,7 +42,7 @@ class MenuAppBar extends Component {
                     <Toolbar>
                         <Typography variant="display1" color="inherit" className={classes.grow}>
                             <Button component={Link} to="/" color="inherit">
-                                Posty
+                                Posts
                             </Button>
                         </Typography>
                         <IconButton

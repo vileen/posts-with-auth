@@ -22,7 +22,7 @@ const responsiveDialog = ({ fullScreen, classes, title, children, open, handleCl
         <DialogContent className={classes.content}>{children}</DialogContent>
         <DialogActions>
             <Button onClick={handleClose} color="primary" autoFocus>
-                Zamknij
+                Close
             </Button>
         </DialogActions>
     </Dialog>

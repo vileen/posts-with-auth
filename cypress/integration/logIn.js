@@ -15,7 +15,7 @@ describe('LogIn', () => {
             .should('have.value', 'test1');
         cy.get(sel.submitButton)
             .should('be.visible')
-            .should('contain', 'Zaloguj się')
+            .should('contain', 'Log In')
             .click();
         cy.get(sel.form)
             .should('exist')
@@ -26,7 +26,7 @@ describe('LogIn', () => {
         cy.get(sel.errorSnackbarMessage)
             .should('exist')
             .should('be.visible')
-            .should('contain', 'Błędne dane logowania');
+            .should('contain', 'Wrong credentials');
     });
 
     it('right credentials', () => {
@@ -41,7 +41,7 @@ describe('LogIn', () => {
             .should('have.value', 'test');
         cy.get(sel.submitButton)
             .should('be.visible')
-            .should('contain', 'Zaloguj się')
+            .should('contain', 'Log In')
             .click();
         cy.get(sel.form).should('not.exist');
         cy.checkLocalStorageIfLoggedIn();

@@ -35,12 +35,12 @@ class Profile extends Component {
         const { user, handleClose, classes } = this.props;
 
         return (
-            <Dialog title="Twoje dane" open={true} handleClose={handleClose}>
-                {Profile.renderField({ label: 'Imię i nazwisko', value: user.name })}
+            <Dialog title="Your data" open={true} handleClose={handleClose}>
+                {Profile.renderField({ label: 'Name', value: user.name })}
                 <Divider className={classes.divider} component="hr" />
-                {Profile.renderField({ label: 'Adres email', value: user.email })}
+                {Profile.renderField({ label: 'Email address', value: user.email })}
                 <Divider className={classes.divider} component="hr" />
-                {Profile.renderField({ label: 'Hasło', value: user.password })}
+                {Profile.renderField({ label: 'Password', value: user.password })}
             </Dialog>
         );
     }

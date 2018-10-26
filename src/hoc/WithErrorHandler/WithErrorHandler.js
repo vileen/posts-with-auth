@@ -46,7 +46,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
                 <Fragment>
                     <Snackbar
                         type="error"
-                        message="Wystąpił nieoczekiwany błąd"
+                        message="Unexpected error occurred"
                         open={open}
                         handleClose={this.handleClose}
                     />
